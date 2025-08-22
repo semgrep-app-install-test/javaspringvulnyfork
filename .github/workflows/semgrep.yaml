@@ -21,7 +21,7 @@ on:
 
 jobs:
   Call-Workflow:
-    uses: semgrep-app-install-test/semgrep_scan/tree/main/.github/workflows/semgrep.yaml@main
+    uses: semgrep-app-install-test/semgrep_scan/.github/workflows/semgrep.yaml@main
     with:
       # (Required) Please insert the runner group for your project
       # Example: runner-group: 'ubuntu/latest'
