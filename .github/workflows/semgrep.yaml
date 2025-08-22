@@ -29,7 +29,7 @@ jobs:
       # (Optional) Please insert the app ID of the application here
       # If you have more than 1 app ID, please separate them with a comma
       # If at least 1 ID has not been entered the auto-tagging feature will not work
-      app-ids: '12345'
+      app-ids: '54321'
       # (Optional) Please insert the branch that should be tagged as "prod"
       prod-branch: 'prod'
       # (Optional) Please indicate if this should be calculated for ASPN scoring entering true
