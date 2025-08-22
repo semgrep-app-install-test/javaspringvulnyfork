@@ -1,0 +1,49 @@
+# Name of this GitHub Actions workflow.
+name: Semgrep SAST
+
+on:
+  # Scan changed files in PRs (diff-aware scanning):
+  pull_request: {}
+
+  # Scan on-demand through GitHub Actions interface:
+  workflow_dispatch: {}
+
+  # Scan mainline branches and report all findings:
+  # Ensure you have the correct branch/es for your project
+  # Recommend only setting the default branch on push, or branches you push to frequently
+  push:
+    branches: ["prod"]
+
+  # Schedule the CI job (this method uses cron syntax):
+  #schedule:
+    #- cron: '0 0 1 * *' # Sets Semgrep to scan on the 1st of every month at 12:00 AM UTC.
+    # It is recommended to change the schedule to a random time.
+
+jobs:
+  Call-Workflow:
+    uses: https://github.com/semgrep-app-install-test/semgrep_scan/tree/main/.github/workflows/semgrep.yaml@main
+    with:
+      # (Required) Please insert the runner group for your project
+      # Example: runner-group: 'ubuntu/latest'
+      runner-group: 'ubuntu/latest'
+      # (Optional) Please insert the app ID of the application here
+      # If you have more than 1 app ID, please separate them with a comma
+      # If at least 1 ID has not been entered the auto-tagging feature will not work
+      app-ids: '12345'
+      # (Optional) Please insert the branch that should be tagged as "prod"
+      prod-branch: 'prod'
+      # (Optional) Please indicate if this should be calculated for ASPN scoring entering true
+      # If set to true, the default branch will be tagged as prod and all other branches will be tagged as dev
+      prod-scan: 'true'
+      # (Optional) Enter any option command flags for debugging the scan or obtaining additional details
+      # Example: '--verbose --max-target-bytes=500000'
+      semgrep-flags: ''
+      # (Optional) Enter the max number of high serverity findings to tolerate before failing a PR
+      max-high-severity: ''
+      # (Optional) Enter the max number of medium severity findings to tolerate before failing a PR
+      max-medium-severity: ''
+      # (Optional) If you would like to tag your project with something other than the app ID
+      # You can enter them here separated by a comma
+      other-tags: 'CI_non_default_prod'
+    secrets:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
