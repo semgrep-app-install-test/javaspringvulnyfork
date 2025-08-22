@@ -25,7 +25,7 @@ jobs:
     with:
       # (Required) Please insert the runner group for your project
       # Example: runner-group: 'ubuntu/latest'
-      runner-group: 'ubuntu/latest'
+      runner-group: 'ubuntu-latest'
       # (Optional) Please insert the app ID of the application here
       # If you have more than 1 app ID, please separate them with a comma
       # If at least 1 ID has not been entered the auto-tagging feature will not work
