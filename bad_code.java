@@ -21,7 +21,17 @@ public class JwtLog4jController {
         Enumeration<String> headers = request.getHeaderNames();
         while (headers.hasMoreElements()) {
             String it = headers.nextElement();
-            logger.info("{} = {}", it, request.getHeader(it));
+            // Helper method to sanitize input for logging to prevent log injection attacks
+            private String sanitizeForLogging(String input) {
+                if (input == null) {
+                    return "null";
+                }
+                // Remove carriage returns, line feeds, and tabs that could be used for log injection
+                return input.replaceAll("[\r\n\t]", "_");
+            }
+
+            // Updated logging statement with sanitized values
+            logger.info("{} = {}", sanitizeForLogging(it), sanitizeForLogging(request.getHeader(it)));
         }
         logger.info("Hitting Log4J route");
         logger.info(text);
